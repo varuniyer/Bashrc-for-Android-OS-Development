@@ -27,7 +27,7 @@ function buildrom() {
     cd ../..
     . build/envsetup.sh
     lunch aokp_oneplus2-userdebug
-    mka rainbowfarts
+    make -j8
 }
 
 case $- in
