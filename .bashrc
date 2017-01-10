@@ -8,6 +8,8 @@ alias e='emacs -nw'
 alias up='sudo apt-get update && sudo apt-get upgrade'
 alias sync='repo sync --force-sync'
 
+export USE_CCACHE=1
+
 function commit() {
     cd ~/AOKP/android/system
     repo start nougat AOKP/device_oneplus_oneplus2
@@ -17,6 +19,20 @@ function commit() {
     cd ~/AOKP/android/system
     repo upload AOKP/device_oneplus_oneplus2
     cd ~/AOKP/android/system/device/oneplus/oneplus2
+}
+
+function initrom() {
+    mkdir -p ~/AOKP/android/system
+    cd ~/AOKP/android/system
+    repo init -u https://github.com/AOKP/platform_manifest.git -b nougat
+    repo sync --force-sync
+    cd vendor
+    git clone -b cm-14.1 https://github.com/TheMuppets/proprietary_vendor_oneplus
+    mv proprietary_vendor_oneplus oneplus
+    cd qcom
+    git clone -b cm-14.1 https://github.com/TheMuppets/proprietary_vendor_qcom_binaries
+    mv proprietary_vendor_qcom_binaries binaries
+    cd ../../
 }
 
 function buildrom() {
